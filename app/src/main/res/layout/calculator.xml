@@ -6,10 +6,8 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_gravity="center"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="계산기 화면" />
+        android:text="TextView" />
 </LinearLayout>
