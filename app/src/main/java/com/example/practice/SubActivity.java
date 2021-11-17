@@ -16,6 +16,8 @@ public class SubActivity extends AppCompatActivity {
     boolean isOperatorClick = false;
     double resultNumber = 0;
     double inputNumber = 0;
+    int intResultNumber= 0;
+    String strResultNumber = "";
     String operator = "=";
     String lastOperator = "＋";
     ActivityCalculatorBinding activityCalculatorBinding;
@@ -89,7 +91,8 @@ public class SubActivity extends AppCompatActivity {
 
             resultNumber = calculator(resultNumber, inputNumber, operator);
 
-            activityCalculatorBinding.resultTextView.setText(String.valueOf(resultNumber));
+            replaceNum(resultNumber);
+            activityCalculatorBinding.resultTextView.setText(strResultNumber);
             isFirstInput = true;
             operator = view.getTag().toString();
             activityCalculatorBinding.mathTextView.append(inputNumber + " " + operator + " ");
@@ -123,13 +126,15 @@ public class SubActivity extends AppCompatActivity {
             if(isOperatorClick){
                 activityCalculatorBinding.mathTextView.setText(resultNumber + " " + lastOperator + " " + inputNumber + " =");
                 resultNumber = calculator(resultNumber, inputNumber, lastOperator);
-                activityCalculatorBinding.resultTextView.setText(String.valueOf(resultNumber));
+                replaceNum(resultNumber);
+                activityCalculatorBinding.resultTextView.setText(strResultNumber);
             }
         } else {
             inputNumber = Double.parseDouble(activityCalculatorBinding.resultTextView.getText().toString());
 
             resultNumber = calculator(resultNumber, inputNumber, operator);
-            activityCalculatorBinding.resultTextView.setText(String.valueOf(resultNumber));
+            replaceNum(resultNumber);
+            activityCalculatorBinding.resultTextView.setText(strResultNumber);
             isFirstInput = true;
             operator = view.getTag().toString();
             activityCalculatorBinding.mathTextView.append(inputNumber + " " + operator + " ");
@@ -147,5 +152,17 @@ public class SubActivity extends AppCompatActivity {
                 isFirstInput = true;
             }
         }
+    }
+
+    public void replaceNum(double result){
+        if(isNumeric(result)){
+            strResultNumber = String.valueOf((int)result);
+        }else {
+            strResultNumber = String.valueOf((Math.round(result*10000)/10000.0));
+        }
+    }
+
+    public boolean isNumeric(double result){
+        return Math.ceil(result) == Math.floor(result);
     }
 }
