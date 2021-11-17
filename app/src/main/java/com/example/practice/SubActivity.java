@@ -16,7 +16,6 @@ public class SubActivity extends AppCompatActivity {
     boolean isOperatorClick = false;
     double resultNumber = 0;
     double inputNumber = 0;
-    int intResultNumber= 0;
     String strResultNumber = "";
     String operator = "=";
     String lastOperator = "＋";
@@ -77,7 +76,8 @@ public class SubActivity extends AppCompatActivity {
             if(operator.equals("=")){
                 operator = view.getTag().toString();
                 resultNumber = Double.parseDouble(activityCalculatorBinding.resultTextView.getText().toString());
-                activityCalculatorBinding.mathTextView.setText(resultNumber + " " + operator + " ");
+                replaceNum(resultNumber);
+                activityCalculatorBinding.mathTextView.setText(strResultNumber + " " + operator + " ");
             }else {
                 operator = view.getTag().toString();
                 String getMathText = activityCalculatorBinding.mathTextView.getText().toString();
@@ -95,7 +95,8 @@ public class SubActivity extends AppCompatActivity {
             activityCalculatorBinding.resultTextView.setText(strResultNumber);
             isFirstInput = true;
             operator = view.getTag().toString();
-            activityCalculatorBinding.mathTextView.append(inputNumber + " " + operator + " ");
+            replaceNum(inputNumber);
+            activityCalculatorBinding.mathTextView.append(strResultNumber + " " + operator + " ");
         }
     }
 
