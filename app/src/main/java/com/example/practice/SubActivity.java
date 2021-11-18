@@ -16,7 +16,7 @@ public class SubActivity extends AppCompatActivity {
     boolean isOperatorClick = false;
     double resultNumber = 0;
     double inputNumber = 0;
-    String strResultNumber = "";
+    String strResultNumber = ""; //문자형 결과값
     String operator = "=";
     String lastOperator = "＋";
     ActivityCalculatorBinding activityCalculatorBinding;
