@@ -1,11 +1,13 @@
 package com.example.practice;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.practice.databinding.ActivityCalculatorBinding;
@@ -14,9 +16,11 @@ public class SubActivity extends AppCompatActivity {
 
     boolean isFirstInput = true;
     boolean isOperatorClick = false;
+    boolean ptsYN;
     double resultNumber = 0;
     double inputNumber = 0;
-    String strResultNumber = ""; //문자형 결과값
+    String strResultNumber = "";
+    String pts = "";
     String operator = "=";
     String lastOperator = "＋";
     ActivityCalculatorBinding activityCalculatorBinding;
@@ -26,6 +30,27 @@ public class SubActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityCalculatorBinding = ActivityCalculatorBinding.inflate(getLayoutInflater());
         setContentView(activityCalculatorBinding.getRoot());
+
+        AlertDialog.Builder ad = new AlertDialog.Builder(SubActivity.this);
+        ad.setMessage("괄호를 사용하시겠습니까?");
+
+        ad.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ptsYN = true;
+            }
+        });
+
+        ad.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ptsYN = false;
+                activityCalculatorBinding.leftPtsButton.setEnabled(false);
+                activityCalculatorBinding.rightPtsButton.setEnabled(false);
+            }
+        });
+
+        ad.show();
     }
 
     public void numButtonClick(View view){
@@ -165,5 +190,9 @@ public class SubActivity extends AppCompatActivity {
 
     public boolean isNumeric(double result){
         return Math.ceil(result) == Math.floor(result);
+    }
+
+    public void ptsClick (View view){
+        pts = view.getTag().toString();
     }
 }
